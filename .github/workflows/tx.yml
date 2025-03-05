@@ -24,9 +24,10 @@ jobs:
           echo -e "Title: $ISSUE_BODY" > "txs/tx_$ISSUE_ID.md"
 
       - name: Commit and push to consensus branch
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout consensus || git checkout -b consensus
           git add txs/tx_*.md
           git commit -m "Add issue #${{ github.event.issue.number }}"
           git push origin consensus
-
