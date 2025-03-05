@@ -25,8 +25,8 @@ jobs:
 
       - name: Commit and push to consensus branch
         run: |
+          git pull
           git checkout consensus || git checkout -b consensus
           git add txs/tx_*.md
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/zk524/txtest.git
           git commit -m "Add issue #${{ github.event.issue.number }}"
           git push origin consensus
