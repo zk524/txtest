@@ -15,6 +15,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/zk524/txtest.git
       
       - name: Create file from issue
         run: |
@@ -24,8 +25,6 @@ jobs:
           echo -e "Title: $ISSUE_BODY" > "txs/tx_$ISSUE_ID.md"
 
       - name: Commit and push to consensus branch
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout consensus || git checkout -b consensus
           git add txs/tx_*.md
